@@ -15,29 +15,35 @@ public class EndEffectorCommand extends CommandBase {
   private final Controls controls;
 
   /**
-   * Creates a new DriveCommand.
+   * Creates a new EndEffectorCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param end_effector End effector subsystem
+   * @param controls Controller wrapper
    */
   public EndEffectorCommand(EndEffector end_effector, Controls controls) {
     this.end_effector = end_effector;
     this.controls = controls;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(end_effector);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
   /*
-  Intended behavior:
+  Intended chute behavior:
   1. Open on button press
   2. Close on same button press
   3. Neither action can be interrupted
+  
+  Whether this is the most user friendly is debateable
   */
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+  * execute
+  * If chute is not in motion and chute button is pressed,
+  *   toggle the position of the chute between open and closed
+  * @return  void
+  */
   @Override
   public void execute() {
     // Pull control inputs
@@ -50,11 +56,9 @@ public class EndEffectorCommand extends CommandBase {
     }
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

@@ -17,20 +17,24 @@ public class DriveCommand extends CommandBase {
   /**
    * Creates a new DriveCommand.
    *
-   * @param subsystem The subsystem used by this command.
+   * @param h_drive HDrive subsystem
+   * @param controls Controller wrapper
    */
   public DriveCommand(HDrive h_drive, Controls controls) {
     this.h_drive = h_drive;
     this.controls = controls;
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(h_drive);
   }
 
-  // Called when the command is initially scheduled.
   @Override
   public void initialize() {}
 
-  // Called every time the scheduler runs while the command is scheduled.
+  /**
+  * execute
+  * Grab controller joystick inputs and input to tank drive
+  * Grab left and right trigger inputs, add them, input to strafe
+  * @return  void
+  */
   @Override
   public void execute() {
     // Pull control inputs
@@ -45,11 +49,9 @@ public class DriveCommand extends CommandBase {
     h_drive.strafe(strafe);
   }
 
-  // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {}
 
-  // Returns true when the command should end.
   @Override
   public boolean isFinished() {
     return false;

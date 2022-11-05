@@ -4,6 +4,11 @@
 
 package frc.robot;
 
+/**
+ * I didn't know you could deploy configs to the robot initially, so this is where constants are
+ * Not that bad, since I don't expect to have many constants in ths project anyway
+ */
+
 public final class Constants {
     /* Controller configurations */
     public static final int CONTROLLER_PORT = 0;

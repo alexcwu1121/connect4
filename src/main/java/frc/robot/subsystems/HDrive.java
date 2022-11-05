@@ -14,6 +14,14 @@ import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
+/**
+ * Subsystem wrapper for HDrive
+ * It seems like they want subsystems to own commands so you can declare dependencies between them
+ * I don't see any dependencies between my two subsystems, so this subsystem does not own a command.
+ * Instead, I register all my commands at the top Robot level that tie controls and subsystem wrappers together
+ * 
+ * This class doesn't even need to extend Subsystem
+ */
 public class HDrive extends SubsystemBase {
   // initialize tank motors and config object
   private final WPI_VictorSPX tank_left_motor = new WPI_VictorSPX(TANK_LEFT_MOTOR_CANID);
@@ -44,12 +52,26 @@ public class HDrive extends SubsystemBase {
     diff_drive.setDeadband(TANK_DEADBAND_THRESHOLD);
   }
 
+  /**
+  * drive
+  * Drives differential tank drive given left and right velocity using default quadratic scaling
+  * @param   left_velocity the target velocity of the left side of the tank drive [-1, 1]
+  * @param   right_velocity the target velocity of the right side of the tank drive [-1, 1]
+  * @return  void
+  */
   public void drive(double left_velocity, double right_velocity){
     diff_drive.tankDrive(TANK_MULTIPLIER*left_velocity, TANK_MULTIPLIER*right_velocity);
   }
 
+  /**
+  * strafe
+  * Drives strafe motor in H-drive
+  * @param   strafe_velocity the target velocity of the strafe motor [-1, 1]
+  * @return  void
+  */
   public void strafe(double strafe_velocity){
-    // assume left -> right is positive
+    // left -> right is positive
+    // change direction with STRAFE_MULTIPLIER if desired
     strafe_motor.set(VictorSPXControlMode.PercentOutput.toControlMode(), STRAFE_MULTIPLIER*strafe_velocity);
   }
 }

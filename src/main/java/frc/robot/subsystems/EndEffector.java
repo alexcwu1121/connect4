@@ -23,16 +23,31 @@ public class EndEffector extends SubsystemBase {
     this.chuteClose();
   }
 
+  /**
+  * chuteOpen
+  * Opens end effector chute containing ball
+  * @return  void
+  */
   private void chuteOpen(){
     chute_servo.setAngle(CHUTE_SERVO_OPEN_POSITION);
     this.target_angle = CHUTE_SERVO_OPEN_POSITION;
   }
 
+  /**
+  * chuteClose
+  * Closes end effector chute containing ball
+  * @return  void
+  */
   private void chuteClose(){
     chute_servo.setAngle(CHUTE_SERVO_CLOSED_POSITION);
     this.target_angle = CHUTE_SERVO_CLOSED_POSITION;
   }
 
+  /**
+  * chuteToggle
+  * Toggles the state of the chute between open and closed
+  * @return  void
+  */
   public void chuteToggle(){
     if(target_angle == CHUTE_SERVO_OPEN_POSITION){
       chuteClose();
@@ -41,7 +56,11 @@ public class EndEffector extends SubsystemBase {
     }
   }
 
-  // check if servo has finished moving to a destination
+  /**
+  * isChuteSafe
+  * Checks if chute mechanism is in motion
+  * @return   boolean whether chute is in motion
+  */
   public boolean isChuteSafe(){
     if(Math.abs(chute_servo.getAngle() - target_angle) < CHUTE_SERVO_ANGLE_TOLERANCE){
       return true;
