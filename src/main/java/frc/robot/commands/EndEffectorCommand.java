@@ -48,12 +48,16 @@ public class EndEffectorCommand extends CommandBase {
   public void execute() {
     // Pull control inputs
     boolean chute_toggle = controls.getAButton();
-    // Transform
-    boolean is_chute_safe = end_effector.isChuteSafe();
-    // Write to subsystem
-    if(chute_toggle && is_chute_safe){
-      end_effector.chuteToggle();
+    if(!chute_toggle){
+      return;
     }
+    boolean is_chute_safe = end_effector.isChuteSafe();
+    if(!is_chute_safe){
+      return;
+    }
+    // Transform
+    // Write to subsystem
+    end_effector.chuteToggle();
   }
 
   @Override
